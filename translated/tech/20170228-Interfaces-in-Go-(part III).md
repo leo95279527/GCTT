@@ -1,6 +1,6 @@
 ![image](https://cdn-images-1.medium.com/max/800/1*LjLr800nNrw4G7Z_NCN1Tw.jpeg)
 
-# Go接口（第三部分）
+# Go 接口（第三部分）
 本文介绍的是golang接口主题的另一部分。
 主要内容包括接口中的方法，
 接口类型的值作为map中的key,或者作为内置字段。
@@ -22,7 +22,7 @@ func main() {
     f(t) // Hi, my name is foo
 }
 ```
-golang语言规范同样允许接口类型使用方法：
+golang 语言规范同样允许接口类型使用方法：
 >在一个接口类型中，通过方法来获取函数是符合规范的。从中获得的函数拥有一个明确的接受者。让我们来看一个例子：
 ``` go
 type I interface {
@@ -42,7 +42,7 @@ func main() {
 }
 ```
 ## 接口作为接收者
-Go允许定义方法 —— 接受了特定类型的函数：
+Go 允许定义方法 —— 接受了特定类型的函数：
 ``` go
 type T struct {
     name string
@@ -85,10 +85,10 @@ func main() {
     fmt.Println(i.(*T2).field1) // barbar
 }
 ```
-在这个实例中，类型\*T2实现了接口I。被`*T1实现的方法M作为了T2的一个内置的字段。在过去的文章里有更多关于字段和方法的详细介绍。
+在这个实例中，类型`*T2`实现了接口I。被`*T1`实现的方法M作为了T2的一个内置的字段。在过去的文章里有更多关于字段和方法的详细介绍。
 
 ## 接口类型作为map中的key或者value
-map 是一个由key-value组成的数据结构。(在go1.8之前，map底层是通过哈希表实现的)
+map 是一个由 key-value 组成的数据结构。(在 go1.8 之前，map 底层是通过哈希表实现的)
 ```go
 counters := make(map[string]int64)
 counters["foo"] = 1
@@ -105,7 +105,7 @@ for key, value := range counters {
     fmt.Printf("%s: %v\n", key, value) // order is randomized!
 }
 ```
-接口类型的值可以作为map中的key或者value来使用：
+接口类型的值可以作为 map 中的 key 或者 value 来使用：
 ```go
 
 type T1 struct {
@@ -130,13 +130,13 @@ func main() {
 ```
 ## 无所不在的接口
 ### error
-go中内置的error是一个接口类型：
+go 中内置的 error 是一个接口类型：
 ```go
 type error interface {
 	Error() string
 }
 ```
-任何类型实现了Error方法，此方法没有参数且返回一个string类型的值，那么这个类型就实现了error接口：
+任何类型实现了 Error 方法，此方法没有参数且返回一个 string 类型的值，那么这个类型就实现了 error 接口：
 ```go
 
 import "fmt"
@@ -154,13 +154,13 @@ func main() {
 }
 ```
 ### io.Writer
-io.Writer接口仅仅含有一个方法 —— Write:
+io.Writer 接口仅仅含有一个方法 —— Write:
 ``` go
 Write(p []byte) (n int, err error)
 ```
-如果有任何异常发生，返回的error就将不会是nil。
+如果有任何异常发生，返回的 error 就将不会是 nil。
 error接口在前一节同样做了描述。
-Writer接口在标准库中到处都有被用到，比如MultiWriter、TeeReader、net/http，还有很多其他用到的地方。
+Writer接口在标准库中到处都有被用到，比如 MultiWriter、TeeReader、net/http，还有很多其他用到的地方。
 
 点赞以帮助别人发现这篇文章。如果你想得到新文章的更新，请关注我。
 
